@@ -10,11 +10,8 @@ async_comprehension = __import__('1-async_comprehension').async_comprehension
 async def measure_runtime() -> float:
     """ this coroutine measures runtime then returns it """
     timeStamp1: float = time.time()
-    await asyncio.gather(
-        async_comprehension(),
-        async_comprehension(),
-        async_comprehension(),       async_comprehension()
-    )
+    await asyncio.gather(async_comprehension(), async_comprehension(),
+                         async_comprehension(), async_comprehension())
     timeStamp2: float = time.time()
     lapsed: float = timeStamp2 - timeStamp1
     return lapsed
