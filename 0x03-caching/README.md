@@ -10,7 +10,7 @@
   * What limits a caching system have
 
 ### More Info
-**Parent class ``BaseCaching``**
+**Parent class** ``BaseCaching``
 All your classes must inherit from ``BaseCaching``
 
 ```
