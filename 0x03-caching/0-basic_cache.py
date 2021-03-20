@@ -7,8 +7,6 @@ from base_caching import BaseCaching
 
 class BasicCache(BaseCaching):
     """ this class inherits from BaseCaching """
-
-
     def put(self, key, item):
         """ class method to put item in cache dict """
         if key or item is not None:
@@ -21,4 +19,4 @@ class BasicCache(BaseCaching):
         if key not in self.cache_data:
             return None
         else:
-            return self.cache_data[key]
+            return self.cache_data.get(key)
