@@ -19,16 +19,18 @@ class MRUCache(BaseCaching):
         if key and item is not None:
             self.cache_data[key] = item
             self.cache_data.move_to_end(key)
-            self.putList.append(key)
+            if key not in self.putList:
+                self.putList.append(key)
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
                 removeG = self.getList[-1]
+                removeP = self.putList[-2]
                 if removeG in self.cache_data:
                     print('DISCARD: ' + str(removeG))
                     del self.cache_data[removeG]
                 else:
-                    removeP = self.putList[-2]
-                    print('DISCARD: ' + str(removeP))
-                    del self.cache_data[removeP]
+                    if removeP in self.cache_data:
+                        print('DISCARD: ' + str(removeP))
+                        del self.cache_data[removeP]
 
     def get(self, key):
         """ class method to return a value from cache dict """
