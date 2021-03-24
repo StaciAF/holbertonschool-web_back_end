@@ -50,15 +50,18 @@ class Server:
         dataSize = len(allMyData)
         nextPage = page + 1
         prevPage = page - 1
-        totalPages = math.ceil((dataSize + 1) // page_size)
+        totalPages = (dataSize + 1) // page_size
         if nextPage * page_size < dataSize:
             hyperDict['page_size'] = page_size
+            hyperDict['page'] = page
+            hyperDict['data'] = self.get_page(page, page_size)
+            hyperDict['next_page'] = nextPage
+            hyperDict['prev_page'] = prevPage
+            hyperDict['total_pages'] = totalPages
         else:
             hyperDict['page_size'] = 0
-        hyperDict['page'] = page
-        hyperDict['data'] = self.get_page(page, page_size)
-        hyperDict['total_pages'] = totalPages
-
-        if hyperDict['page_size'] == 0:
+            hyperDict['data'] = []
+            hyperDict['next_page'] = None
+            hyperDict['prev_page'] = prevPage
             hyperDict['total_pages'] = totalPages + 1
         return hyperDict
