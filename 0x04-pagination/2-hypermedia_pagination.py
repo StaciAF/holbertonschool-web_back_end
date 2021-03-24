@@ -56,7 +56,10 @@ class Server:
             hyperDict['page'] = page
             hyperDict['data'] = self.get_page(page, page_size)
             hyperDict['next_page'] = nextPage
-            hyperDict['prev_page'] = prevPage
+            if hyperDict['page'] == 1:
+                hyperDict['prev_page'] = None
+            else:
+                hyperDict['prev_page'] = prevPage
             hyperDict['total_pages'] = totalPages
         else:
             hyperDict['page_size'] = 0
