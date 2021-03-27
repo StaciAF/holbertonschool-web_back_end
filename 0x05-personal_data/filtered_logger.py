@@ -4,9 +4,35 @@ this module creates methods for a filtered logger
 """
 from typing import List
 import re
+import logging
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
-    """ this method obfuscates data from log messages, returns new str with public details only """
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+    """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = list(fields)
+
+    def format(self, record: logging.LogRecord) -> str:
+        """ this method filters values of incoming log records """
+        return filter_datum(self.fields,
+                            self.REDACTION,
+                            super().format(record),
+                            self.SEPARATOR)
+
+
+def filter_datum(fields: List[str],
+                 redaction: str,
+                 message: str,
+                 separator: str) -> str:
+    """ this method obfuscates data from log messages
+    then returns new str with public details only """
     # fields is a list of keys
     # redaction is what keys:value should be replaced with
     # message is str to find fields and replace values
