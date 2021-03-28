@@ -2,10 +2,12 @@
 """
 this module creates methods for a filtered logger
 """
-from typing import List
+from typing import List, Any
 import re
 import logging
 
+
+PII_FIELDS = ('name','email', 'phone','ssn', 'password')
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
@@ -25,7 +27,15 @@ class RedactingFormatter(logging.Formatter):
                             self.REDACTION,
                             super().format(record),
                             self.SEPARATOR)
-
+                            
+def get_logger(self) -> logging.Logger:
+    userDataLGR = logging.getLogger('user_data')
+    userDataLGR.setLevel(logging.INFO)
+    userDataLGR.propagate = False
+    console = logging.StreamHandler()
+    console.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    userDataLGR.addHandler(console)
+    return userDataLGR
 
 def filter_datum(fields: List[str],
                  redaction: str,
