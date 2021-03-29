@@ -2,11 +2,11 @@
 """
 this module creates methods for a filtered logger
 """
-from typing import List, Any
-import re
 import logging
 import mysql.connector
 import os
+import re
+from typing import List, Any
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
@@ -33,6 +33,7 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger(self) -> logging.Logger:
+    """ this method gets a logger """
     userDataLGR = logging.getLogger('user_data')
     userDataLGR.setLevel(logging.INFO)
     userDataLGR.propagate = False
