@@ -5,6 +5,8 @@ this module creates methods for a filtered logger
 from typing import List, Any
 import re
 import logging
+import mysql.connector
+import os
 
 
 PII_FIELDS = ('name','email', 'phone','ssn', 'password')
@@ -52,3 +54,18 @@ def filter_datum(fields: List[str],
         regex = f"(?<={field}=).*?(?={separator})"
         message = re.sub(regex, redaction, message)
     return message
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ this method returns a MySQLConnection """
+    host = os.environ['PERSONAL_DATA_DB_HOST']
+    database = os.environ['PERSONAL_DATA_DB_NAME']
+    user = os.environ['PERSONAL_DATA_DB_USERNAME']
+    password = os.environ['PERSONAL_DATA_DB_PASSWORD']
+    
+    db = mysql.connector.connect(
+        host=host,
+        database=database,
+        user=user,
+        password=password
+    )
+    return db
