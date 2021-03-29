@@ -9,7 +9,8 @@ import mysql.connector
 import os
 
 
-PII_FIELDS = ('name','email', 'phone','ssn', 'password')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
@@ -29,7 +30,8 @@ class RedactingFormatter(logging.Formatter):
                             self.REDACTION,
                             super().format(record),
                             self.SEPARATOR)
-                            
+
+
 def get_logger(self) -> logging.Logger:
     userDataLGR = logging.getLogger('user_data')
     userDataLGR.setLevel(logging.INFO)
@@ -39,21 +41,18 @@ def get_logger(self) -> logging.Logger:
     userDataLGR.addHandler(console)
     return userDataLGR
 
+
 def filter_datum(fields: List[str],
                  redaction: str,
                  message: str,
                  separator: str) -> str:
     """ this method obfuscates data from log messages
     then returns new str with public details only """
-    # fields is a list of keys
-    # redaction is what keys:value should be replaced with
-    # message is str to find fields and replace values
-    # char given to separate each field
-    # re.sub('value', redaction, str)
     for field in fields:
         regex = f"(?<={field}=).*?(?={separator})"
         message = re.sub(regex, redaction, message)
     return message
+
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ this method returns a MySQLConnection """
@@ -61,7 +60,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     database = os.environ['PERSONAL_DATA_DB_NAME']
     user = os.environ['PERSONAL_DATA_DB_USERNAME']
     password = os.environ['PERSONAL_DATA_DB_PASSWORD']
-    
+
     db = mysql.connector.connect(
         host=host,
         database=database,
