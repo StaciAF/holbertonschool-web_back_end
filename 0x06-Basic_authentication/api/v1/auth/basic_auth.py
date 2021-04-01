@@ -87,3 +87,16 @@ class BasicAuth(Auth):
             email, pwd = self.extract_user_credentials(decode)
             user = self.user_object_from_credentials(email, pwd)
             return user
+
+    def extract_user_credentials(self, decoded_base64_authorization_header):
+        """ allows password passed with : """
+        colon = ':'
+        if decoded_base64_authorization_header is None:
+            return None, None
+        if isinstance(decoded_base64_authorization_header, str) is False:
+            return None, None
+        if colon not in decoded_base64_authorization_header:
+            return None, None
+        else:
+            credentials = decoded_base64_authorization_header.split(':', 1)
+            return credentials
