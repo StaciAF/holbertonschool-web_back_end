@@ -18,31 +18,36 @@ if os.environ['AUTH_TYPE'] == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
 
+
 @app.errorhandler(401)
 def req_unauth(error) -> str:
     """ unauthorized request handler """
-    return jsonify({"error": "Unauthorized"}), 401  
+    return jsonify({"error": "Unauthorized"}), 401
+
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """ forbidden access request handler """
     return jsonify({"error": "Forbidden"}), 403
 
+
 @app.before_request
 def before_request_func():
     """this method is for filtering each request """
-    pathList = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    pathList = [
+            '/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth is not None and auth.require_auth(request.path, pathList):
         if auth.authorization_header(request) is None:
             abort(401)
         if auth.current_user(request) is None:
-            abort(403)        
+            abort(403)
 
 
 if __name__ == "__main__":
