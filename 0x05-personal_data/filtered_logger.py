@@ -7,6 +7,7 @@ import mysql.connector
 import os
 import re
 from typing import List, Any
+from datetime import datetime
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
@@ -69,3 +70,17 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         password=password
     )
     return db
+
+def main():
+    """ gets db connection, retrieves all rows in a table """
+    db = get_db()
+    cur = db.cursor(dictionary=True)
+    cur.execute("SELECT * FROM users")
+    row = cur.fetchall()
+    for row in rows:
+        for col in row:
+            print(col)
+    
+
+if __name__ == "__main__":
+    main()
