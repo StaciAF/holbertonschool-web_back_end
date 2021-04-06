@@ -57,24 +57,19 @@ class BasicAuth(Auth):
                                      user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
         """ this method returns a User based on credentials """
-        if user_email or user_pwd is None:
+        if user_email is None or not isinstance(user_email, str):
             return None
-        if isinstance(user_email, str) is False:
+        elif user_pwd is None or not isinstance(user_pwd, str):
             return None
-        if isinstance(user_pwd, str) is False:
-            return None
-        if DATA.get('User') is None:
+        elif not DATA.get('User'):
             return None
         emailSearch = User.search({'email': user_email})
-        if emailSearch is None:
-            return None
         for user in emailSearch:
-            if user.email == user_email:
+            if user.is_valid_password(user_pwd):
                 return user
-            if user.is_valid_password(user_pwd) is False:
-                return None
-            else:
-                return user
+        return None
+        
+            
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ this method overloads Auth and gets user instance """
