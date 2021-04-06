@@ -50,8 +50,9 @@ def before_request_func():
     if auth is not None and auth.require_auth(request.path, pathList):
         if auth.authorization_header(request) is None:
             abort(401)
-        if request.current_user is None:
+        if auth.current_user(request) is None:
             abort(403)
+        request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
