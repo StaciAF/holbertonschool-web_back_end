@@ -3,7 +3,11 @@
 this module creates a class Auth
 """
 from flask import request
-from typing import List, TypeVar
+from typing import List, TypeVar, Any
+import os
+
+
+SESSION_NAME = '_my_session_id'
 
 
 class Auth:
@@ -36,3 +40,9 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """this method returns None"""
         return None
+
+    def session_cookie(self, request=None) -> Any:
+        """ this method returns a cookie value from a request """
+        if request is None:
+            return None
+        return request.cookies.get(SESSION_NAME)
