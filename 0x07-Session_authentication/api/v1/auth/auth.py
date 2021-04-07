@@ -7,7 +7,7 @@ from typing import List, TypeVar, Any
 import os
 
 
-SESSION_NAME = '_my_session_id'
+os.environ['SESSION_NAME'] = '_my_session_id'
 
 
 class Auth:
@@ -45,4 +45,4 @@ class Auth:
         """ this method returns a cookie value from a request """
         if request is None:
             return None
-        return request.cookies.get(SESSION_NAME)
+        return request.cookies.get(os.environ['SESSION_NAME'])
