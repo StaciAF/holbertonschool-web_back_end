@@ -7,9 +7,6 @@ from typing import List, TypeVar, Any
 import os
 
 
-os.environ['SESSION_NAME'] = '_my_session_id'
-
-
 class Auth:
     """this creates the Auth class for API autorization """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
@@ -45,4 +42,4 @@ class Auth:
         """ this method returns a cookie value from a request """
         if request is None:
             return None
-        return request.cookies.get(os.environ['SESSION_NAME'])
+        return request.cookies.get(os.getenv('SESSION_NAME'))
