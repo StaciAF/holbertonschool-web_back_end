@@ -22,7 +22,7 @@ def auth_sess_login():
     if u_pwd is None or u_pwd == "":
         return jsonify({'error': 'password missing'}), 400
 
-    emailSearch = User.search({'email', u_email})
+    emailSearch = User.search({'email': u_email})
 
     if emailSearch == []:
         return jsonify({"error": "no user found for this email"}), 404
