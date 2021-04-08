@@ -8,9 +8,12 @@ class SessionExpAuth(SessionAuth):
 
     def __init__(self):
         """ this is the init method for SessionExpAuth """
+        return None
 
     def create_session(self, user_id=None):
         """ this method creates a session returns its ID """
-
+        return None
+        
     def user_id_for_session_id(self, session_id=None):
         """ this method returns User id from dict """
+        return None
