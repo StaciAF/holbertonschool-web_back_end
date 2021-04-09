@@ -72,3 +72,9 @@ In this task, you will implement a ``get_reset_password_token`` function to resp
 
 #### 18. Update password
 In this task, you will implement the ``Auth.update_password`` method. It takes ``reset_token`` string argument and a ``password`` string argument and returns None.
+
+#### 19. Update password end-point
+In this task you will implement the ``update_password`` function in the ``app`` module to respond to the ``PUT /reset_password`` route.
+
+#### 20. End-to-end integration test
+Create a new module called ``main.py``. Create one function for each of the following tasks. Use the ``requests`` module to query your web server for the corresponding end-point. Use ``assert`` to validate the response’s expected status code and payload (if any) for each task.
