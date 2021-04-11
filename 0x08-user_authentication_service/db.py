@@ -5,8 +5,10 @@ this module creats a new class DB
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import InvalidRequestError
 
 from sys import argv
+from typing import List
 from user import Base, User
 
 
@@ -33,3 +35,9 @@ class DB:
         new_sess.add(new_user)
         new_sess.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> List:
+        """ this method takes in keyword args and returns match from list """
+        session = self._session
+        user_found = session.query(User).filter_by(**kwargs).one()
+        return(user_found)
