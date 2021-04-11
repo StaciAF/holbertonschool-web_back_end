@@ -9,7 +9,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.exc import NoResultFound
 
 from sys import argv
-from typing import List
+from typing import List, TypeVar
 from user import Base, User
 
 
@@ -29,12 +29,13 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> User:
+    def add_user(self, email: str, hashed_password: str) -> TypeVar('User'):
         """ this method saves a user to db then returns a User object """
-        new_sess = self._session
-        new_user = User(email=email, hashed_password=hashed_password)
-        new_sess.add(new_user)
-        new_sess.commit()
+        new_user = User()
+        new_user.email = email
+        new_user.hashed_password = hashed_password
+        self._session.add(new_user)
+        self._session.commit()
         return new_user
 
     def find_user_by(self, **kwargs) -> List:
