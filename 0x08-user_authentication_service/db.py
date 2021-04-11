@@ -54,3 +54,19 @@ class DB:
                     raise NoResultFound
                 else:
                     return user_found
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """ this method finds_user_by and updates user attrs """
+        user_attrs = ['id',
+                      'email',
+                      'hashed_password',
+                      'session_id',
+                      'reset_token']
+        session = self._session
+        this_user = self.find_user_by(id=user_id)
+        for key, val in kwargs.items():
+            if key not in user_attrs:
+                raise ValueError
+            this_user.key = val
+            session.add(this_user)
+            session.commit()
