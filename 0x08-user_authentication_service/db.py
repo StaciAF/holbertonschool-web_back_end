@@ -3,8 +3,7 @@
 this module creats a new class DB
 """
 from sqlalchemy import create_engine
-from sqlalchemy.exc import InvalidRequestError
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound, InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -30,15 +29,15 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> User:
+    def add_user(self, email: str, hashed_password: str):
         """ this method saves a user to db then returns a User object """
-        new_sess = self._session
+        session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
-        new_sess.add(new_user)
-        new_sess.commit()
+        session.add(new_user)
+        session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs) -> List:
+    def find_user_by(self, **kwargs):
         """ this method takes in keyword args and returns match from list """
         session = self._session
         user_attrs = ['id',
