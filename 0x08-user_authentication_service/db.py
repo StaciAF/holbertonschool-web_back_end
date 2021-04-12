@@ -58,6 +58,7 @@ class DB:
             else:
                 return user_found
 
+    # @property
     def update_user(self, user_id: int, **kwargs) -> None:
         """ this method finds_user_by and updates user attrs """
         user_attrs = ['id',
