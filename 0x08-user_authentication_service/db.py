@@ -12,8 +12,9 @@ from user import Base, User
 
 
 class DB:
-
+    """ this defines the DB class with no inheritance """
     def __init__(self):
+        """ this method initializes DB """
         self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -37,16 +38,17 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """ this method takes in keyword args and returns match from list """
         session = self._session
-        user_found = session.query(User).filter_by(**kwargs).one()
-        return user_found
+        return session.query(User).filter_by(**kwargs).one()
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ this method finds_user_by and updates user attrs """
+        session = self._session
         this_user = self.find_user_by(id=user_id)
         for key, val in kwargs.items():
             if hasattr(this_user, key):
                 setattr(this_user, key, val)
-                self._session.commit()
+                session.commit()
+                return None
             else:
                 raise ValueError
         return None
