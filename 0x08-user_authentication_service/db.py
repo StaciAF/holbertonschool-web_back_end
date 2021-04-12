@@ -29,15 +29,17 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """ this method saves a user to db then returns a User object """
         session = self._session
-        new_user = User(email=email, hashed_password=hashed_password)
-        session.add(new_user)
-        session.commit()
-        return new_user
+        if email and hashed_password:
+            new_user = User(email=email, hashed_password=hashed_password)
+            session.add(new_user)
+            session.commit()
+            return new_user
+        return None
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """ this method takes in keyword args and returns match from list """
         session = self._session
         user_attrs = ['id',
@@ -49,8 +51,8 @@ class DB:
             if kwarg not in user_attrs:
                 raise InvalidRequestError
             else:
-                user_found = session.query(User).filter_by(**kwargs).one()
-                if not user_found:
+                user_found = session.query(User).filter_by(**kwargs).first()
+                if user_found is None:
                     raise NoResultFound
                 else:
                     return user_found
@@ -70,3 +72,4 @@ class DB:
             this_user.key = val
             session.add(this_user)
             session.commit()
+        return None
