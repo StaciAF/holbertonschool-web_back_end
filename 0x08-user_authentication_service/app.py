@@ -1,4 +1,4 @@
-#!/usr/bin/python 3
+#!/usr/bin/env python3
 """
 this module sets up Flask app, adds routes
 """
