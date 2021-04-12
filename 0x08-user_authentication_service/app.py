@@ -14,7 +14,7 @@ def index():
     Return:
     - jsonify payload {"message": "Bienvenue"}
     """
-    return jsonify(message="Bienvenue")
+    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
