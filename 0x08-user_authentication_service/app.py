@@ -12,9 +12,9 @@ app = Flask(__name__)
 def index():
     """ GET /
     Return:
-    - jsonify message
+    - jsonify payload {"message": "Bienvenue"}
     """
-    return jsonify({"message": "Bienvenue"})
+    return jsonify(message="Bienvenue")
 
 
 if __name__ == "__main__":
