@@ -42,12 +42,11 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ this method finds_user_by and updates user attrs """
-        session = self._session
         this_user = self.find_user_by(id=user_id)
         for key, val in kwargs.items():
             if hasattr(this_user, key):
                 setattr(this_user, key, val)
-                session.commit()
+                self._session.commit()
                 return None
             else:
                 raise ValueError
