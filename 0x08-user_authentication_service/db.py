@@ -47,15 +47,16 @@ class DB:
                       'hashed_password',
                       'session_id',
                       'reset_token']
-        for kwarg in kwargs:
-            if kwarg not in user_attrs:
-                raise InvalidRequestError
+        for key in kwargs.items():
+            try:
+                key in user_attrs
+            except InvalidRequestError:
+                pass
+            user_found = session.query(User).filter_by(**kwargs).first()
+            if user_found is None:
+                raise NoResultFound
             else:
-                user_found = session.query(User).filter_by(**kwargs).first()
-                if user_found is None:
-                    raise NoResultFound
-                else:
-                    return user_found
+                return user_found
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ this method finds_user_by and updates user attrs """
