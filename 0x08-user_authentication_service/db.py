@@ -14,9 +14,7 @@ from user import Base, User
 
 
 class DB:
-    """ this method names DB as a new class with no inheritance """
     def __init__(self):
-        """ this method initiates DB class """
         self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
@@ -58,7 +56,6 @@ class DB:
             else:
                 return user_found
 
-    # @property
     def update_user(self, user_id: int, **kwargs) -> None:
         """ this method finds_user_by and updates user attrs """
         user_attrs = ['id',
