@@ -5,6 +5,7 @@ this module adds auth methods
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+import bcrypt
 
 
 class Auth:
@@ -24,6 +25,21 @@ class Auth:
         except NoResultFound:
             hashed_pwd = _hash_password(password)
             return self._db.add_user(email, hashed_pwd)
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """ this method validates a user via email and pwd """
+        if isinstance(email, str) is True and\
+                isinstance(password, str) is True:
+            try:
+                hello_user = self._db.find_user_by(email=email)
+                if hello_user:
+                    if bcrypt.checkpw(password.encode(),
+                                      hello_user.hashed_password):
+                        return True
+                    else:
+                        return False
+            except NoResultFound:
+                return False
 
 
 def _hash_password(password: str) -> str:
