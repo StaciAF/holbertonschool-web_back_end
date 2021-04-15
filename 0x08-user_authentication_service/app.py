@@ -3,7 +3,7 @@
 this module sets up Flask app, adds routes
 """
 from auth import Auth
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -20,7 +20,10 @@ def index():
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
-    """ this method creates an end-point to register a user """
+    """ POST /
+    Return:
+    - jsonify user created or already registered
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     try:
