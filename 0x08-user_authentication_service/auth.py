@@ -67,11 +67,10 @@ class Auth:
 
     def destroy_session(self, user_id: int) -> None:
         """ this method updates then returns session_id to None """
+        if user_id is None or isinstance(user_id, int) is False:
+            return None
         try:
-            hello_user = self._db.find_user_by(id=user_id)
-            if hello_user:
-                hello_user.id = None
-                return hello_user.id
+            self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return None
 
