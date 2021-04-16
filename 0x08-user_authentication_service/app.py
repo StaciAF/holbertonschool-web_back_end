@@ -3,7 +3,7 @@
 this module sets up Flask app, adds routes
 """
 from auth import Auth
-from flask import Flask, abort, jsonify, redirect, request
+from flask import Flask, abort, jsonify, redirect, request, url_for
 
 app = Flask(__name__)
 AUTH = Auth()
