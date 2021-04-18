@@ -5,7 +5,7 @@ from utils import access_nested_map
 import unittest
 
 
-class TestAccessNestedMaps(unittest.TestCase):
+class TestAccessNestedMap(unittest.TestCase):
     """ this class tests access_nested_maps method from utils.py """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
