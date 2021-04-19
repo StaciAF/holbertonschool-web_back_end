@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ this module tests the client module """
-from client import GitHubOrgClient, get_json
+from client import GitHubOrgClient
 from parameterized import parameterized
 from unittest.mock import patch
 import unittest
