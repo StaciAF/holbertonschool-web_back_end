@@ -2,8 +2,8 @@
 """ this module tests the client module """
 from client import GitHubOrgClient
 from parameterized import parameterized
-from unittest.mock import patch
 import unittest
+from unittest.mock import patch
 
 
 class TestGithubOrgClient(unittest.TestCase):
