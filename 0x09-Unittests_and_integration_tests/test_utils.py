@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" this module builds test for utils """
+""" this module creates tests for utils """
 from parameterized import parameterized
 from typing import Dict
 from unittest.mock import patch
