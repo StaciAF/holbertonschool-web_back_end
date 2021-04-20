@@ -3,7 +3,6 @@
 from parameterized import parameterized
 from unittest.mock import patch
 from utils import access_nested_map, get_json, memoize
-import requests
 import unittest
 
 
