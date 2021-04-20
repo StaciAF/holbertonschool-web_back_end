@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ this module creates tests for utils """
 from parameterized import parameterized
-from typing import Dict
 from unittest.mock import patch
 from utils import access_nested_map, get_json, memoize
 import requests
@@ -39,7 +38,7 @@ class TestGetJson(unittest.TestCase):
             mock_req().json.return_value = test_payload
             response = get_json(test_url)
             self.assertEqual(response, test_payload)
-            self.assertEqual(isinstance(response, Dict), True)
+            self.assertEqual(isinstance(response, dict), True)
             assert mock_req.call_count == 2
 
 
