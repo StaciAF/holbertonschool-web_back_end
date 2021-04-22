@@ -7,12 +7,6 @@ app = Flask(__name__)
 babel = Babel()
 
 
-@app.route('/', methods=['GET'])
-def index():
-    """ this method renders index.html template """
-    return render_template('0-index.html')
-
-
 class Config(object):
     """ this class configures available languages """
     LANGUAGES = ['en', 'fr']
@@ -21,6 +15,13 @@ class Config(object):
 
 
 app.config.from_object(Config)
+
+
+@app.route('/', methods=['GET'])
+def index():
+    """ this method renders index.html template """
+    return render_template('1-index.html')
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")

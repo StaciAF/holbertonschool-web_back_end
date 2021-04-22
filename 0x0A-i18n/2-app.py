@@ -20,7 +20,7 @@ app.config.from_object(Config)
 @app.route('/', methods=['GET'])
 def index():
     """ this method renders index.html template """
-    return render_template('0-index.html')
+    return render_template('2-index.html')
 
 
 @babel.localeselector
