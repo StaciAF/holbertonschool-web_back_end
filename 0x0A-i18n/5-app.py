@@ -42,9 +42,10 @@ def get_locale():
 def get_user():
     """ this method returns a user dictionary """
     valid_id = request.args.get('login_as')
-    if valid_id or valid_id is not None:
+    if valid_id:
         return users.get(int(valid_id))
-    return None
+    else:
+        return None
 
 
 @app.before_request
