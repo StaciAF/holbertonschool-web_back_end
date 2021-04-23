@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_babel import Babel
 
 app = Flask(__name__)
-babel = Babel()
+babel = Babel(app)
 
 
 class Config(object):
@@ -20,7 +20,7 @@ app.config.from_object(Config)
 @app.route('/', methods=['GET'])
 def index():
     """ this method renders index.html template """
-    return render_template('3-index.html')
+    return render_template("3-index.html")
 
 
 @babel.localeselector
