@@ -22,9 +22,8 @@ class Cache():
             fn: Callable = None) -> Union[str, bytes, int, float]:
         """ this method gets value of passed key from Redis """
         if fn is not None:
-            get_value = self._redis.get(key)
-            return fn(get_value)
-        return get_value
+            return fn(self._redis.get(key))
+        return self._redis.get(key)
 
     def get_str(self, key: str) -> str:
         """ this method ensures key is of type str with typecast """
