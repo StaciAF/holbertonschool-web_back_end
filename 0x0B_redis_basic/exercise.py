@@ -6,6 +6,21 @@ import redis
 import uuid
 
 
+def call_history(method: Callable) -> Callable:
+    """ this method stores history for passed function """
+    input_list_keys = method.__qualname__ + ":inputs"
+    output_list_keys = method.__qualname__ + ":outputs"
+
+    @wraps(method)
+    def wrap_call_history(self, *args) -> bytes:
+        """ this function wraps count_history to persist details """
+        self._redis.rpush(input_list_keys, str(args))
+        output = method(self, *args)
+        self._redis.rpush(output_list_keys, output)
+        return output
+    return wrap_call_history
+
+
 def count_calls(method: Callable) -> Callable:
     """ this decorator counts how many times a Cache method is called """
     @wraps(method)
@@ -19,11 +34,13 @@ def count_calls(method: Callable) -> Callable:
 
 class Cache():
     """ creates new class Cache """
+
     def __init__(self):
         """ this method initializes the class Cache """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """ this method creates rando key, stores input in Redis """
