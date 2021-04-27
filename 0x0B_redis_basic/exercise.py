@@ -24,8 +24,7 @@ class Cache():
         if fn is not None:
             get_value = self._redis.get(key)
             return fn(get_value)
-        else:
-            return get_value
+        return get_value
 
     def get_str(self, key: str) -> str:
         """ this method ensures key is of type str with typecast """
