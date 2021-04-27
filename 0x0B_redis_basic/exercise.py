@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 """ this module sets up REDIS """
+from functools import wraps
 from typing import Callable, Union
 import redis
 import uuid
+
+
+def count_calls(method: Callable) -> Callable:
+    """ this decorator counts how many times a Cache method is called """
+    @wraps(method)
+    def wrap_count_calls(self, *args) -> bytes:
+        """ this function wraps count_calls to persist method details """
+        key = method.__qualname__
+        self._redis.incr(key, 1)
+        return method(self, *args)
+    return wrap_count_calls
 
 
 class Cache():
