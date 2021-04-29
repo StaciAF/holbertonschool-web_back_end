@@ -1,7 +1,7 @@
 -- this script creates a stored procedure
 -- computes and stores avg student score
 DELIMITER $$
-CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT)
+CREATE PROCEDURE ComputeAverageScoreForUser (IN user_id INT)
 BEGIN
     UPDATE users
     SET @average = (SELECT AVG(score)
