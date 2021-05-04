@@ -1,0 +1,4 @@
+// this script inserts a doc in collection school
+db.school.insertOne(
+        { name: "Holberton school"}
+)
