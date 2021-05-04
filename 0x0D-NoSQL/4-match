@@ -1,0 +1,2 @@
+// this script lists all docs with matching name passed as param
+db.school.find({ name: 'Holberton school' })
