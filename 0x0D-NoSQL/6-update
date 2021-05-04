@@ -3,6 +3,7 @@
  {
      $set: {
          address: '972 Mission street'
-     }
- })
- 
+     },
+{
+    multi: 'true'
+})
