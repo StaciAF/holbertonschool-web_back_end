@@ -1,0 +1,2 @@
+// this script deletes all docs in collection with attr
+db.school.deleteMany({ name: 'Holberton school' })

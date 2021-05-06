@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 0x0E. ES6 Basics
 
 ### Learning Objectives
@@ -25,3 +26,7 @@
 #### 10. For...of Loops
 #### 11. Iterator
 #### 12. Let's create a report object
+=======
+README.md at the head of Holberton Back-End Trimester Repo
+Learning Back-End Specifics in Web Development Specialization
+>>>>>>> 08c5eb62d2979c9b75ad0963889c1242da21544e
