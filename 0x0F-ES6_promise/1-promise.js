@@ -1,5 +1,5 @@
-const getFullResponseFromAPI = (success) => {
-  const myProm = new Promise((resolve, reject) => {
+export default function getFullResponseFromAPI(success) {
+  return new Promise((resolve, reject) => {
     if (success === true) {
       const myObj = {
         status: 200,
@@ -7,10 +7,7 @@ const getFullResponseFromAPI = (success) => {
       };
       resolve(myObj);
     } else {
-      reject(new Error('The fake API is not working correctly'));
+      reject(new Error('The fake API is not working currently'));
     }
   });
-  return myProm;
-};
-
-export default getFullResponseFromAPI;
+}
