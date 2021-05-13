@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class HolbertonCourse {
   constructor(name, length, students) {
     if (typeof name !== 'string') throw TypeError('Name must be a string');
@@ -31,7 +32,7 @@ export default class HolbertonCourse {
   }
 
   set students(newStudent) {
-    if (!Array.isArray) throw TypeError('Students must be an array');
+      if (!Array.isArray(newStudent) throw TypeError('Students must be an array');
     this._students = newStudent;
   }
 }
