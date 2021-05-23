@@ -3,7 +3,9 @@ const readline = require('readline').createInterface({
   output: process.stdout,
 });
 
-readline.question('Welcome to Holberton School, what is your name?\n', (name) => {
+readline.setPrompt('Welcome to Holberton School, what is your name?\n');
+readline.prompt();
+readline.on('line', (name) => {
   console.log(`Your name is: ${name}`);
   readline.close();
 });
