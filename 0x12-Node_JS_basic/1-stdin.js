@@ -1,12 +1,10 @@
-process.stdout.write(
-  'Weclome to Holberton School, what is your name?\n',
-);
+console.log('Weclome to Holberton School, what is your name?');
 process.stdin.setEncoding('utf8');
 process.stdin.on('readable', () => {
-  const done = process.stdin.read();
+  const name = process.stdin.read();
 
-  if (done) {
-    process.stdout.write(`Your name is: ${done}`);
+  if (name !== null) {
+    process.stdout.write(`Your name is: ${name}`);
   }
 });
 
