@@ -4,7 +4,7 @@ const countStudents = async (path) => {
   if (!fs.existsSync(path)) {
     throw new Error('Cannot load the database');
   }
-  const content = await fs.readFile(path, 'utf8');
+  const content = await fs.promises.readFile(path, 'utf8');
   let lines = content.toString().split(/\r?\n/);
   lines = lines.filter((line) => line !== '');
   lines.shift();
